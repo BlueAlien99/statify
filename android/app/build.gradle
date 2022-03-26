@@ -47,6 +47,11 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        manifestPlaceholders += [
+                redirectHostName: "callback",
+                redirectSchemeName: "statify",
+        ]
     }
 
     buildTypes {

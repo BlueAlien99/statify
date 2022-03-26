@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bluealien99.statify">
    <application
-        android:label="statify"
+        android:label="Statify"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

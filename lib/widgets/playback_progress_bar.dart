@@ -27,10 +27,7 @@ class _PlaybackProgressBarState extends State<PlaybackProgressBar> {
   int _currentPlaybackPosition = 0;
   Timer? _timer;
 
-  @override
-  void didUpdateWidget(PlaybackProgressBar oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _currentPlaybackPosition = widget.playbackPosition;
+  void handleTimer() {
     bool isTimerActive = _timer?.isActive ?? false;
     if (!widget.isPaused && !isTimerActive) {
       _timer = Timer.periodic(const Duration(milliseconds: tickDuration), (timer) {
@@ -38,9 +35,17 @@ class _PlaybackProgressBarState extends State<PlaybackProgressBar> {
           _currentPlaybackPosition += tickDuration;
         });
       });
-    } else {
+    }
+    if (widget.isPaused) {
       _timer?.cancel();
     }
+  }
+
+  @override
+  void didUpdateWidget(PlaybackProgressBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _currentPlaybackPosition = widget.playbackPosition;
+    handleTimer();
   }
 
   @override

@@ -1,4 +1,6 @@
 *.env
+local.properties
+.gradle
 
 # Miscellaneous
 *.class

@@ -4,8 +4,17 @@ import 'package:spotify_sdk/spotify_sdk.dart';
 import 'package:statify/widgets/cover_image.dart';
 import 'package:statify/widgets/playback_progress_bar.dart';
 
-class Player extends StatelessWidget {
+class Player extends StatefulWidget {
   const Player({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _PlayerState();
+  }
+}
+
+class _PlayerState extends State<Player> {
+  Widget? _widget;
 
   void handleHorizontalDrag(DragEndDetails details) {
     double v = details.primaryVelocity ?? 0;
@@ -88,7 +97,7 @@ class Player extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<PlayerState>(
+    _widget ??= StreamBuilder<PlayerState>(
         stream: SpotifySdk.subscribePlayerState(),
         builder: (BuildContext context, AsyncSnapshot<PlayerState> snapshot) {
           var playerState = snapshot.data;
@@ -99,5 +108,6 @@ class Player extends StatelessWidget {
 
           return buildPlayer(context, playerState);
         });
+    return _widget!;
   }
 }

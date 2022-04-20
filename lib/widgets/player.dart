@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_sdk/models/player_state.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 import 'package:statify/widgets/cover_image.dart';
+import 'package:statify/widgets/playback_progress_bar.dart';
 
 class Player extends StatelessWidget {
   const Player({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class Player extends StatelessWidget {
 
   Widget buildPlayer(BuildContext context, PlayerState playerState) {
     var track = playerState.track!;
-    double progress = playerState.playbackPosition / track.duration;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -68,25 +68,17 @@ class Player extends StatelessWidget {
                             iconSize: 30,
                             padding: const EdgeInsets.symmetric(horizontal: 4),
                             constraints: const BoxConstraints(),
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                           )
                         ],
                       ),
                     ),
                   ),
-                  Container(
-                    color: Colors.white38,
-                    width: double.infinity,
-                    child: FractionallySizedBox(
-                      alignment: Alignment.centerLeft,
-                      widthFactor: progress,
-                      child: const SizedBox(
-                        height: 2,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  )
+                  PlaybackProgressBar(
+                      playbackPosition: playerState.playbackPosition,
+                      trackDuration: track.duration,
+                      isPaused: playerState.isPaused)
                 ],
               ),
             )),

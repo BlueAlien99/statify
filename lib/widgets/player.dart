@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_sdk/models/player_state.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
+import 'package:statify/connector.dart';
 import 'package:statify/widgets/cover_image.dart';
 import 'package:statify/widgets/playback_progress_bar.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -60,12 +61,18 @@ class _PlayerState extends State<Player> {
                                 children: [
                                   Text(
                                     track.name,
+                                    softWrap: false,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.fade,
                                     ),
                                   ),
                                   Text(track.artist.name ?? '',
-                                      style: const TextStyle(color: Colors.white54)),
+                                      softWrap: false,
+                                      style: const TextStyle(
+                                        color: Colors.white54,
+                                        overflow: TextOverflow.fade,
+                                      )),
                                 ],
                               ),
                             ),
@@ -99,7 +106,8 @@ class _PlayerState extends State<Player> {
   @override
   Widget build(BuildContext context) {
     _widget ??= StreamBuilder<PlayerState>(
-        stream: SpotifySdk.subscribeConnectionStatus()
+        stream: Connector()
+            .subscribeConnectionState()
             .switchMap((_) => SpotifySdk.subscribePlayerState()),
         builder: (BuildContext context, AsyncSnapshot<PlayerState> snapshot) {
           var playerState = snapshot.data;

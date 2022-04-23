@@ -4,7 +4,6 @@ import 'package:spotify_sdk/spotify_sdk.dart';
 import 'package:statify/connector.dart';
 import 'package:statify/widgets/cover_image.dart';
 import 'package:statify/widgets/playback_progress_bar.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 class Player extends StatefulWidget {
   const Player({Key? key}) : super(key: key);
@@ -106,9 +105,7 @@ class _PlayerState extends State<Player> {
   @override
   Widget build(BuildContext context) {
     _widget ??= StreamBuilder<PlayerState>(
-        stream: Connector()
-            .subscribeConnectionState()
-            .switchMap((_) => SpotifySdk.subscribePlayerState()),
+        stream: Connector().subscribePlayerState(),
         builder: (BuildContext context, AsyncSnapshot<PlayerState> snapshot) {
           var playerState = snapshot.data;
 

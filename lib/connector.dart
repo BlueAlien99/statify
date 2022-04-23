@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:spotify_sdk/models/player_state.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 import 'package:rxdart/rxdart.dart';
@@ -22,7 +23,9 @@ class Connector {
   String _token = '';
   String _lastMessage = '';
   StreamSubscription? _sdkConnectionSubscription;
+  StreamSubscription? _sdkPlayerSubscription;
   final _connectionState = BehaviorSubject.seeded(ConnectionState.uninitialized);
+  final _playerState = BehaviorSubject<PlayerState>();
   final _reconnectionDelay = const Duration(milliseconds: 200);
 
   String get token {
@@ -35,6 +38,10 @@ class Connector {
 
   Stream<ConnectionState> subscribeConnectionState() {
     return _connectionState;
+  }
+
+  Stream<PlayerState> subscribePlayerState() {
+    return _playerState;
   }
 
   Future<String> generateToken() {
@@ -82,6 +89,9 @@ class Connector {
       }
       return _connectionState.add(ConnectionState.error);
     });
+    _sdkPlayerSubscription ??= _connectionState
+        .switchMap((_) => SpotifySdk.subscribePlayerState())
+        .listen(_playerState.add);
     return generateToken().then((token) => token.isEmpty ? null : connectToRemote());
   }
 }

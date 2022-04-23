@@ -8,8 +8,18 @@ import 'package:statify/screens/home/album_screen.dart';
 import 'package:statify/screens/home/artist_screen.dart';
 import 'package:statify/screens/home/track_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _HomeScreenState();
+  }
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String? _trackId;
+  Widget? _homeScreen;
 
   Widget buildHomeScreen(BuildContext context, Track track) {
     Album album = (track.album ?? Album.fromJson({}));
@@ -46,9 +56,9 @@ class HomeScreen extends StatelessWidget {
           if (trackId == null || trackId.isEmpty) {
             return const CircularProgressIndicator();
           }
-
-          debugPrint('xd');
-
+          if (trackId == _trackId && _homeScreen != null) {
+            return _homeScreen!;
+          }
           return FutureBuilder(
               future: Track.getTrack(trackId),
               builder: (BuildContext context, AsyncSnapshot<Track> snapshot) {
@@ -58,7 +68,10 @@ class HomeScreen extends StatelessWidget {
                   return const CircularProgressIndicator();
                 }
 
-                return buildHomeScreen(context, track);
+                _trackId = trackId;
+                _homeScreen = buildHomeScreen(context, track);
+
+                return _homeScreen!;
               });
         });
   }

@@ -31,6 +31,8 @@ dependencies:
     sdk: flutter
 
   flutter_dotenv: ^5.0.2
+  http: ^0.13.4
+  rxdart: ^0.27.3
   spotify_sdk: ^2.2.0
   stream_transform: ^2.0.0
 

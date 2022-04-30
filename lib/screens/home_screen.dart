@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const CircularProgressIndicator();
                 }
 
-                _trackId = trackId;
+                _trackId = track.id;
                 _homeScreen = buildHomeScreen(context, track);
 
                 return _homeScreen!;

@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   int _currentViewIndex = 0;
 
   static const List<Widget> _screens = [HomeScreen(), SearchScreen(), LibraryScreen()];
@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
     Connector().subscribeConnectionState().listen((event) {
       DialogManager().popAll(context);
       switch (event) {
@@ -66,6 +67,19 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
     Connector().init();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      Connector().connectToRemote();
+    }
   }
 
   @override

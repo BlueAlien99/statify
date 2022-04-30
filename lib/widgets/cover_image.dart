@@ -22,9 +22,11 @@ class CoverImage extends StatefulWidget {
 
 class _CoverImageState extends State<CoverImage> {
   Future<Uint8List?>? _futureImage;
+  bool _hasError = false;
 
   void handleImage({CoverImage? oldWidget}) {
-    if (oldWidget?.uri.raw == widget.uri.raw &&
+    if (!_hasError &&
+        oldWidget?.uri.raw == widget.uri.raw &&
         oldWidget?.dimension.value == widget.dimension.value) {
       return;
     }
@@ -53,15 +55,14 @@ class _CoverImageState extends State<CoverImage> {
           future: _futureImage,
           builder: (BuildContext context, AsyncSnapshot<Uint8List?> snapshot) {
             if (snapshot.hasData) {
+              _hasError = false;
               return Image.memory(
                 snapshot.data!,
                 width: widget.size,
                 height: widget.size,
               );
             }
-            if (snapshot.hasError) {
-              return Icon(Icons.error_outline, size: widget.size);
-            }
+            _hasError = true;
             return Icon(Icons.album, size: widget.size);
           }),
     );

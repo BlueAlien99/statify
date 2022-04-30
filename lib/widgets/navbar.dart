@@ -37,7 +37,7 @@ class Navbar extends StatelessWidget {
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [midColor, Colors.transparent])),
-          child: Player(),
+          child: const Player(),
         ),
         Container(
           decoration: BoxDecoration(

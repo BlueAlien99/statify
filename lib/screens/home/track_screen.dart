@@ -14,9 +14,12 @@ class TrackScreen extends StatelessWidget {
       children: [
         FractionallySizedBox(
             widthFactor: 0.6,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.network(track.album!.images.first.url),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.network(track.album!.images.first.url),
+              ),
             )),
         DataPiece(
           name: 'Name',
@@ -98,7 +101,9 @@ class TrackScreen extends StatelessWidget {
           name: 'Available markets',
           value: track.availableMarkets?.join(', '),
         ),
-        const SizedBox(height: 128,)
+        const SizedBox(
+          height: 128,
+        )
       ],
     ));
   }

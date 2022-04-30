@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:statify/api/album.dart';
 import 'package:statify/api/artist.dart';
 import 'package:statify/api/common/enums.dart';

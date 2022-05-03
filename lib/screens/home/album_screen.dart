@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:statify/api/album.dart';
+import 'package:statify/widgets/home_screen/home_screen_tab_view.dart';
 
 class AlbumScreen extends StatelessWidget {
   final Album album;
@@ -8,8 +9,6 @@ class AlbumScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text('Album'),
-    );
+    return HomeScreenTabView(name: album.name, coverImageUrl: album.images.first.url, children: []);
   }
 }

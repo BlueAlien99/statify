@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:statify/api/common/enums.dart';
 import 'package:statify/api/common/external_urls.dart';
 import 'package:statify/api/common/followers.dart';
 import 'package:statify/api/common/image.dart';
+import 'package:statify/api/utils.dart';
 import 'package:statify/utils/helpers.dart';
 import 'package:statify/utils/type_or.dart';
 import 'package:statify/utils/type_or_null.dart';
@@ -40,5 +43,15 @@ class Artist extends ArtistSummary {
         genres: optionalArrayOfType(stringOr, json['genres']),
         images: optionalArrayOfClass(Image.fromJson, json['images']),
         popularity: intOrNull(json['popularity']));
+  }
+
+  static Future<List<Artist>> getSeveralArtists(List<String> ids) async {
+    final response = await apiGet('/artists?ids=${ids.join(',')}');
+
+    if (response.statusCode == 200) {
+      return arrayOfClass(Artist.fromJson, jsonDecode(response.body)['artists']);
+    } else {
+      throw Exception('Failed to load artists');
+    }
   }
 }

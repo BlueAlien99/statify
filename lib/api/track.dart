@@ -13,7 +13,7 @@ import 'package:statify/utils/type_or_null.dart';
 
 class Track {
   final Album? album;
-  final Artist? artist;
+  final List<ArtistSummary>? artists;
   final List<String>? availableMarkets;
   final int? discNumber;
   final int? durationMs;
@@ -34,7 +34,7 @@ class Track {
 
   Track(
       {this.album,
-      this.artist,
+      this.artists,
       this.availableMarkets,
       this.discNumber,
       this.durationMs,
@@ -56,7 +56,7 @@ class Track {
   factory Track.fromJson(Map json) {
     return Track(
         album: optionallyConstruct(Album.fromJson, json['album']),
-        artist: optionallyConstruct(Artist.fromJson, json['artist']),
+        artists: optionalArrayOfClass(ArtistSummary.fromJson, json['artists']),
         availableMarkets: optionalArrayOfType(stringOr, json['available_markets']),
         discNumber: intOrNull(json['disc_number']),
         durationMs: intOrNull(json['duration_ms']),

@@ -4,27 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:spotify_sdk/models/image_uri.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
-class CoverImage extends StatefulWidget {
+class PlayerCoverImage extends StatefulWidget {
   final ImageUri uri;
   final ImageDimension dimension;
 
   final double size;
 
-  CoverImage({Key? key, required this.uri, required this.dimension, double? size})
+  PlayerCoverImage({Key? key, required this.uri, required this.dimension, double? size})
       : size = size ?? dimension.value.toDouble(),
         super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _CoverImageState();
+    return _PlayerCoverImageState();
   }
 }
 
-class _CoverImageState extends State<CoverImage> {
+class _PlayerCoverImageState extends State<PlayerCoverImage> {
   Future<Uint8List?>? _futureImage;
   bool _hasError = false;
 
-  void handleImage({CoverImage? oldWidget}) {
+  void handleImage({PlayerCoverImage? oldWidget}) {
     if (!_hasError &&
         oldWidget?.uri.raw == widget.uri.raw &&
         oldWidget?.dimension.value == widget.dimension.value) {
@@ -43,7 +43,7 @@ class _CoverImageState extends State<CoverImage> {
   }
 
   @override
-  void didUpdateWidget(CoverImage oldWidget) {
+  void didUpdateWidget(PlayerCoverImage oldWidget) {
     super.didUpdateWidget(oldWidget);
     handleImage(oldWidget: oldWidget);
   }

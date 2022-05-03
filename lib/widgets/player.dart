@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_sdk/models/player_state.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 import 'package:statify/connector.dart';
-import 'package:statify/widgets/cover_image.dart';
+import 'package:statify/widgets/player_cover_image.dart';
 import 'package:statify/widgets/playback_progress_bar.dart';
 
 class Player extends StatefulWidget {
@@ -50,7 +50,8 @@ class _PlayerState extends State<Player> {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Row(
                         children: [
-                          CoverImage(uri: track.imageUri, dimension: ImageDimension.thumbnail),
+                          PlayerCoverImage(
+                              uri: track.imageUri, dimension: ImageDimension.thumbnail),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 12),

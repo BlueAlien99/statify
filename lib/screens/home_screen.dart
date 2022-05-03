@@ -5,7 +5,7 @@ import 'package:statify/api/artist.dart';
 import 'package:statify/api/track.dart';
 import 'package:statify/connector.dart';
 import 'package:statify/screens/home/album_screen.dart';
-import 'package:statify/screens/home/artist_screen.dart';
+import 'package:statify/screens/home/artists_screen.dart';
 import 'package:statify/screens/home/track_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,9 +21,15 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _trackId;
   Widget? _homeScreen;
 
-  Widget buildHomeScreen(BuildContext context, Track track) {
-    Album album = (track.album ?? Album.fromJson({}));
-    Artist artist = (track.artist ?? Artist.fromJson({}));
+  Future<_TrackWithArtists> fetchData(String trackId) async {
+    Track track = await Track.getTrack(trackId);
+    List<Artist> artists = await Artist.getSeveralArtists(
+        (track.artists ?? []).map((artist) => artist.id).whereType<String>().toList());
+    return _TrackWithArtists(track: track, artists: artists);
+  }
+
+  Widget buildHomeScreen(BuildContext context, _TrackWithArtists data) {
+    Album album = (data.track.album ?? Album.fromJson({}));
 
     return DefaultTabController(
         length: 3,
@@ -38,9 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ]),
             Expanded(
                 child: TabBarView(children: [
-              TrackScreen(track: track),
+              TrackScreen(track: data.track),
               AlbumScreen(album: album),
-              ArtistScreen(artist: artist),
+              ArtistsScreen(artists: data.artists),
             ]))
           ],
         ));
@@ -60,19 +66,26 @@ class _HomeScreenState extends State<HomeScreen> {
             return _homeScreen!;
           }
           return FutureBuilder(
-              future: Track.getTrack(trackId),
-              builder: (BuildContext context, AsyncSnapshot<Track> snapshot) {
-                Track? track = snapshot.data;
+              future: fetchData(trackId),
+              builder: (BuildContext context, AsyncSnapshot<_TrackWithArtists> snapshot) {
+                _TrackWithArtists? data = snapshot.data;
 
-                if (track == null) {
+                if (data == null) {
                   return const CircularProgressIndicator();
                 }
 
-                _trackId = track.id;
-                _homeScreen = buildHomeScreen(context, track);
+                _trackId = data.track.id;
+                _homeScreen = buildHomeScreen(context, data);
 
                 return _homeScreen!;
               });
         });
   }
+}
+
+class _TrackWithArtists {
+  Track track;
+  List<Artist> artists;
+
+  _TrackWithArtists({required this.track, required this.artists});
 }

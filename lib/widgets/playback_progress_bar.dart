@@ -56,7 +56,7 @@ class _PlaybackProgressBarState extends State<PlaybackProgressBar> {
 
   @override
   Widget build(BuildContext context) {
-    double progress = min(_currentPlaybackPosition / widget.trackDuration, 1);
+    double progress = (_currentPlaybackPosition / widget.trackDuration).clamp(0, 1);
 
     return Container(
       color: Colors.white38,

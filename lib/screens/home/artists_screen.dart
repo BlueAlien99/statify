@@ -20,20 +20,24 @@ class ArtistsScreen extends StatelessWidget {
 
     Artist artist = artists.first;
 
-    return HomeScreenTabView(name: artist.name, coverImageUrl: artist.images?.first.url, children: [
-      Popularity(value: artist.popularity),
-      DataPiece(name: 'Followers', value: formatLongInt(artist.followers?.total)),
-      DialogListData(
-          name: 'Genres', children: (artist.genres ?? []).map((genre) => Text(genre)).toList()),
-      DialogListData(
-          name: 'Images',
-          children: (artist.images ?? [])
-              .map((image) => UrlData(name: '${image.width}x${image.height}', value: image.url))
-              .toList()),
-      UrlData(name: 'Spotify URL', value: artist.externalUrls?.spotify),
-      UrlData(name: 'API URL', value: artist.href, canOpen: false),
-      DataPiece(name: 'ID', value: artist.id),
-      DataPiece(name: 'URI', value: artist.uri),
-    ]);
+    return HomeScreenTabView(
+        name: artist.name,
+        coverImageUrl: artist.images?.first.url,
+        coverImagePlaceholder: const Icon(Icons.person),
+        children: [
+          Popularity(value: artist.popularity),
+          DataPiece(name: 'Followers', value: formatLongInt(artist.followers?.total)),
+          DialogListData(
+              name: 'Genres', children: (artist.genres ?? []).map((genre) => Text(genre)).toList()),
+          DialogListData(
+              name: 'Images',
+              children: (artist.images ?? [])
+                  .map((image) => UrlData(name: '${image.width}x${image.height}', value: image.url))
+                  .toList()),
+          UrlData(name: 'Spotify URL', value: artist.externalUrls?.spotify),
+          UrlData(name: 'API URL', value: artist.href, canOpen: false),
+          DataPiece(name: 'ID', value: artist.id),
+          DataPiece(name: 'URI', value: artist.uri),
+        ]);
   }
 }

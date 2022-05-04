@@ -17,6 +17,7 @@ class TrackScreen extends StatelessWidget {
     return HomeScreenTabView(
         name: track.name,
         coverImageUrl: track.album?.images.first.url,
+        coverImagePlaceholder: const Icon(Icons.audiotrack),
         children: [
           Popularity(value: track.popularity),
           Artists(artists: track.artists ?? []),

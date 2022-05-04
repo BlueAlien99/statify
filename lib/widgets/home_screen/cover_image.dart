@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class CoverImage extends StatelessWidget {
   final String? url;
+  final Icon placeholder;
 
-  const CoverImage({Key? key, this.url}) : super(key: key);
+  const CoverImage({Key? key, this.url, required this.placeholder}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +18,20 @@ class CoverImage extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 1,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.network(url!),
-          ),
+              padding: const EdgeInsets.all(16),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Row(
+                    children: [Expanded(child: FittedBox(fit: BoxFit.fill, child: placeholder))],
+                  ),
+                  FadeInImage.memoryNetwork(
+                    fadeInDuration: const Duration(milliseconds: 300),
+                    placeholder: kTransparentImage,
+                    image: url!,
+                  ),
+                ],
+              )),
         ));
   }
 }

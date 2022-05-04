@@ -13,22 +13,26 @@ class AlbumScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomeScreenTabView(name: album.name, coverImageUrl: album.images.first.url, children: [
-      Artists(artists: album.artists),
-      DataPiece(name: 'Tracks', value: album.totalTracks.toString()),
-      DialogListData(
-          name: 'Images',
-          children: (album.images ?? [])
-              .map((image) => UrlData(name: '${image.width}x${image.height}', value: image.url))
-              .toList()),
-      DialogListData(
-          name: 'Available markets',
-          length: album.availableMarkets.length,
-          children: [Text(album.availableMarkets.join(', '), textAlign: TextAlign.center)]),
-      UrlData(name: 'Spotify URL', value: album.externalUrls.spotify),
-      UrlData(name: 'API URL', value: album.href, canOpen: false),
-      DataPiece(name: 'ID', value: album.id),
-      DataPiece(name: 'URI', value: album.uri),
-    ]);
+    return HomeScreenTabView(
+        name: album.name,
+        coverImageUrl: album.images.first.url,
+        coverImagePlaceholder: const Icon(Icons.album),
+        children: [
+          Artists(artists: album.artists),
+          DataPiece(name: 'Tracks', value: album.totalTracks.toString()),
+          DialogListData(
+              name: 'Images',
+              children: (album.images ?? [])
+                  .map((image) => UrlData(name: '${image.width}x${image.height}', value: image.url))
+                  .toList()),
+          DialogListData(
+              name: 'Available markets',
+              length: album.availableMarkets.length,
+              children: [Text(album.availableMarkets.join(', '), textAlign: TextAlign.center)]),
+          UrlData(name: 'Spotify URL', value: album.externalUrls.spotify),
+          UrlData(name: 'API URL', value: album.href, canOpen: false),
+          DataPiece(name: 'ID', value: album.id),
+          DataPiece(name: 'URI', value: album.uri),
+        ]);
   }
 }

@@ -5,6 +5,7 @@ import 'package:statify/widgets/data_piece.dart';
 import 'package:statify/widgets/home_screen/dialog_list_button.dart';
 import 'package:statify/widgets/home_screen/home_screen_tab_view.dart';
 import 'package:statify/widgets/home_screen/popularity.dart';
+import 'package:statify/widgets/home_screen/url_data.dart';
 
 class ArtistsScreen extends StatelessWidget {
   final List<Artist> artists;
@@ -27,6 +28,8 @@ class ArtistsScreen extends StatelessWidget {
         widget: DialogListButton(
             name: 'Genres', children: (artist.genres ?? []).map((genre) => Text(genre)).toList()),
       ),
+      UrlData(name: 'Spotify URL', value: artist.externalUrls?.spotify),
+      UrlData(name: 'API URL', value: artist.href, canOpen: false),
       DataPiece(name: 'ID', value: artist.id),
       DataPiece(name: 'URI', value: artist.uri),
     ]);

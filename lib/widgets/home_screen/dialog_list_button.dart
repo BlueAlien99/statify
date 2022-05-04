@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../styles.dart';
+
 class DialogListButton extends StatelessWidget {
   final String name;
   final List<Widget> children;
@@ -31,10 +33,7 @@ class DialogListButton extends StatelessWidget {
     return TextButton(
       onPressed: () => _showDialog(context),
       child: Text('Show all (${length ?? children.length})'),
-      style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-          minimumSize: Size.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+      style: slimTextButtonStyle,
     );
   }
 }

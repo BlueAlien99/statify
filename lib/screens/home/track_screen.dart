@@ -4,7 +4,8 @@ import 'package:statify/widgets/data_piece.dart';
 import 'package:statify/widgets/home_screen/dialog_list_button.dart';
 import 'package:statify/widgets/home_screen/home_screen_tab_view.dart';
 import 'package:statify/widgets/home_screen/popularity.dart';
-import 'package:statify/widgets/home_screen/track_artists.dart';
+import 'package:statify/widgets/home_screen/artists.dart';
+import 'package:statify/widgets/home_screen/url_data.dart';
 
 class TrackScreen extends StatelessWidget {
   final Track track;
@@ -18,7 +19,7 @@ class TrackScreen extends StatelessWidget {
         coverImageUrl: track.album?.images.first.url,
         children: [
           Popularity(value: track.popularity),
-          TrackArtists(artists: track.artists ?? []),
+          Artists(artists: track.artists ?? []),
           DataPiece(name: 'Album', value: track.album?.name),
           DataPiece(name: 'Track / Disc', value: '${track.trackNumber} / ${track.discNumber}'),
           DataPiece(
@@ -33,6 +34,9 @@ class TrackScreen extends StatelessWidget {
                   )
                 ]),
           ),
+          UrlData(name: 'Preview URL', value: track.previewUrl),
+          UrlData(name: 'Spotify URL', value: track.externalUrls?.spotify),
+          UrlData(name: 'API URL', value: track.href, canOpen: false),
           DataPiece(name: 'ID', value: track.id),
           DataPiece(name: 'URI', value: track.uri),
         ]);

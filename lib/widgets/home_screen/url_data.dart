@@ -31,8 +31,8 @@ class UrlData extends StatelessWidget {
 
     return DataPiece(
       name: name,
+      padding: const EdgeInsets.only(left: 8),
       widget: Wrap(
-        spacing: 16,
         children: [
           canOpen
               ? TextButton(

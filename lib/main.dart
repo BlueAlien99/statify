@@ -48,19 +48,21 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
     Connector().subscribeConnectionState().listen((event) {
-      DialogManager().popAll(context);
+      DialogManager().popAllConnectionStateDialogs(context);
       switch (event) {
         case ConnectionState.initializing:
           showDialog(
               context: context,
               barrierDismissible: false,
-              builder: DialogManager().connectingDialogBuilder);
+              builder: DialogManager().connectingDialogBuilder,
+              routeSettings: const RouteSettings(name: '/connectionStateDialog'));
           break;
         case ConnectionState.error:
           showDialog(
               context: context,
               barrierDismissible: false,
-              builder: DialogManager().connectionErrorDialogBuilder);
+              builder: DialogManager().connectionErrorDialogBuilder,
+              routeSettings: const RouteSettings(name: '/connectionStateDialog'));
           break;
         default:
           break;

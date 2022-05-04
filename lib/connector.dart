@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:spotify_sdk/models/player_state.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
@@ -82,6 +83,7 @@ class Connector {
       if (event.connected) {
         return _connectionState.add(ConnectionState.connected);
       }
+      debugPrint(_lastMessage);
       if (_connectionState.value == ConnectionState.connected &&
           event.errorCode == 'SpotifyDisconnectedException') {
         Timer(_reconnectionDelay, connectToRemote);

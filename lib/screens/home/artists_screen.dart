@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:statify/api/artist.dart';
 import 'package:statify/utils/formatters.dart';
 import 'package:statify/widgets/data_piece.dart';
-import 'package:statify/widgets/home_screen/dialog_list_button.dart';
+import 'package:statify/widgets/home_screen/dialog_list_data.dart';
 import 'package:statify/widgets/home_screen/home_screen_tab_view.dart';
 import 'package:statify/widgets/home_screen/popularity.dart';
 import 'package:statify/widgets/home_screen/url_data.dart';
@@ -23,11 +23,13 @@ class ArtistsScreen extends StatelessWidget {
     return HomeScreenTabView(name: artist.name, coverImageUrl: artist.images?.first.url, children: [
       Popularity(value: artist.popularity),
       DataPiece(name: 'Followers', value: formatLongInt(artist.followers?.total)),
-      DataPiece(
-        name: 'Genres',
-        widget: DialogListButton(
-            name: 'Genres', children: (artist.genres ?? []).map((genre) => Text(genre)).toList()),
-      ),
+      DialogListData(
+          name: 'Genres', children: (artist.genres ?? []).map((genre) => Text(genre)).toList()),
+      DialogListData(
+          name: 'Images',
+          children: (artist.images ?? [])
+              .map((image) => UrlData(name: '${image.width}x${image.height}', value: image.url))
+              .toList()),
       UrlData(name: 'Spotify URL', value: artist.externalUrls?.spotify),
       UrlData(name: 'API URL', value: artist.href, canOpen: false),
       DataPiece(name: 'ID', value: artist.id),

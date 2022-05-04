@@ -1,4 +1,5 @@
-- reorganize files and refactor dialog manager
+- reorganize files
+- refactor dialog manager
 - finish home screen
 - track caching
 - artist caching
@@ -11,6 +12,5 @@
 - other artists
 - url data snackbar
 - url data opening
-- slim button padding
 - google play release
 - spotify quota

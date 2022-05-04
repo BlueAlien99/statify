@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
 ButtonStyle slimTextButtonStyle = TextButton.styleFrom(
-    padding: EdgeInsets.zero,
+    padding: const EdgeInsets.all(8),
     minimumSize: Size.zero,
     tapTargetSize: MaterialTapTargetSize.shrinkWrap);

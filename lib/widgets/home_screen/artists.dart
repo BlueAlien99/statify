@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:statify/api/artist.dart';
 import 'package:statify/widgets/data_piece.dart';
-import 'package:statify/widgets/home_screen/dialog_list_button.dart';
+import 'package:statify/widgets/home_screen/dialog_list_data.dart';
 
 class Artists extends StatelessWidget {
   final List<ArtistSummary> artists;
@@ -14,12 +14,8 @@ class Artists extends StatelessWidget {
       return Column(
         children: [
           DataPiece(name: 'Main artist', value: artists.first.name),
-          DataPiece(
-            name: 'Artists',
-            widget: DialogListButton(
-                name: 'Artists',
-                children: artists.map((artist) => Text(artist.name ?? '')).toList()),
-          )
+          DialogListData(
+              name: 'Artists', children: artists.map((artist) => Text(artist.name ?? '')).toList())
         ],
       );
     }

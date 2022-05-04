@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:statify/api/album.dart';
 import 'package:statify/widgets/data_piece.dart';
 import 'package:statify/widgets/home_screen/artists.dart';
-import 'package:statify/widgets/home_screen/dialog_list_button.dart';
+import 'package:statify/widgets/home_screen/dialog_list_data.dart';
 import 'package:statify/widgets/home_screen/home_screen_tab_view.dart';
 import 'package:statify/widgets/home_screen/url_data.dart';
 
@@ -16,13 +16,15 @@ class AlbumScreen extends StatelessWidget {
     return HomeScreenTabView(name: album.name, coverImageUrl: album.images.first.url, children: [
       Artists(artists: album.artists),
       DataPiece(name: 'Tracks', value: album.totalTracks.toString()),
-      DataPiece(
-        name: 'Available markets',
-        widget: DialogListButton(
-            name: 'Available markets',
-            length: album.availableMarkets.length,
-            children: [Text(album.availableMarkets.join(', '), textAlign: TextAlign.center)]),
-      ),
+      DialogListData(
+          name: 'Images',
+          children: (album.images ?? [])
+              .map((image) => UrlData(name: '${image.width}x${image.height}', value: image.url))
+              .toList()),
+      DialogListData(
+          name: 'Available markets',
+          length: album.availableMarkets.length,
+          children: [Text(album.availableMarkets.join(', '), textAlign: TextAlign.center)]),
       UrlData(name: 'Spotify URL', value: album.externalUrls.spotify),
       UrlData(name: 'API URL', value: album.href, canOpen: false),
       DataPiece(name: 'ID', value: album.id),

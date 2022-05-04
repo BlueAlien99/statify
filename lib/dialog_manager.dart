@@ -14,8 +14,9 @@ class DialogManager {
 
   // Implementation
 
-  void popAll(BuildContext context) {
-    Navigator.of(context).popUntil((route) => route is! DialogRoute);
+  void popAllConnectionStateDialogs(BuildContext context) {
+    Navigator.of(context)
+        .popUntil((route) => !(route.settings.name?.contains('connectionStateDialog') ?? false));
   }
 
   AlertDialog connectingDialogBuilder(BuildContext context) {

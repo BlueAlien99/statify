@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:statify/styles.dart';
+import 'package:statify/widgets/data_piece.dart';
 
-import '../../styles.dart';
-
-class DialogListButton extends StatelessWidget {
+class DialogListData extends StatelessWidget {
   final String name;
   final List<Widget> children;
   final int? length;
 
-  const DialogListButton({Key? key, required this.name, required this.children, this.length})
+  const DialogListData({Key? key, required this.name, required this.children, this.length})
       : super(key: key);
 
   void _showDialog(BuildContext context) {
@@ -30,10 +30,13 @@ class DialogListButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => _showDialog(context),
-      child: Text('Show all (${length ?? children.length})'),
-      style: slimTextButtonStyle,
-    );
+    return DataPiece(
+        name: name,
+        padding: const EdgeInsets.only(left: 8),
+        widget: TextButton(
+          onPressed: () => _showDialog(context),
+          child: Text('Show all (${length ?? children.length})'),
+          style: slimTextButtonStyle,
+        ));
   }
 }

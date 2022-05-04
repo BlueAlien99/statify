@@ -1,0 +1,16 @@
+- reorganize files and refactor dialog manager
+- finish home screen
+- track caching
+- artist caching
+- handle api 403
+- handle api 429
+- handle expired token in connector
+- disconnecting?
+- retain tab view
+- image placeholders
+- other artists
+- url data snackbar
+- url data opening
+- slim button padding
+- google play release
+- spotify quota

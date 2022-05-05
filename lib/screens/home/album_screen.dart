@@ -22,7 +22,7 @@ class AlbumScreen extends StatelessWidget {
           DataPiece(name: 'Tracks', value: album.totalTracks.toString()),
           DialogListData(
               name: 'Images',
-              children: (album.images ?? [])
+              children: album.images
                   .map((image) => UrlData(name: '${image.width}x${image.height}', value: image.url))
                   .toList()),
           DialogListData(

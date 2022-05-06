@@ -17,9 +17,16 @@ class HomeScreen extends StatefulWidget {
   }
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+  static const List<Tab> tabs = [
+    Tab(icon: Icon(Icons.audiotrack)),
+    Tab(icon: Icon(Icons.album)),
+    Tab(icon: Icon(Icons.person)),
+  ];
+
   String? _trackId;
   Widget? _homeScreen;
+  late TabController _tabController;
 
   Future<_TrackWithArtists> fetchData(String trackId) async {
     Track track = await Track.getTrack(trackId);
@@ -31,25 +38,34 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildHomeScreen(BuildContext context, _TrackWithArtists data) {
     Album album = (data.track.album ?? Album.fromJson({}));
 
-    return DefaultTabController(
-        length: 3,
-        child: Column(
-          children: [
-            TabBar(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-                tabs: const [
-                  Tab(icon: Icon(Icons.audiotrack)),
-                  Tab(icon: Icon(Icons.album)),
-                  Tab(icon: Icon(Icons.person)),
-                ]),
-            Expanded(
-                child: TabBarView(children: [
-              TrackScreen(track: data.track),
-              AlbumScreen(album: album),
-              ArtistsScreen(artists: data.artists),
-            ]))
-          ],
-        ));
+    return Column(children: [
+      TabBar(
+        controller: _tabController,
+        padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
+        tabs: tabs,
+      ),
+      Expanded(
+          child: TabBarView(
+        controller: _tabController,
+        children: [
+          TrackScreen(track: data.track),
+          AlbumScreen(album: album),
+          ArtistsScreen(artists: data.artists),
+        ],
+      ))
+    ]);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: tabs.length, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override

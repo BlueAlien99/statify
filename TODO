@@ -7,7 +7,6 @@
 - handle api 429
 - handle expired token in connector
 - disconnecting?
-- retain tab view
 - other artists
 - url data snackbar
 - url data opening

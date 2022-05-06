@@ -32,6 +32,9 @@ class TrackScreen extends StatelessWidget {
           UrlData(name: 'Preview URL', value: track.previewUrl),
           UrlData(name: 'Spotify URL', value: track.externalUrls?.spotify),
           UrlData(name: 'API URL', value: track.href, canOpen: false),
+          DataPiece(name: 'ISRC', value: track.externalIds?.isrc),
+          DataPiece(name: 'EAN', value: track.externalIds?.ean),
+          DataPiece(name: 'UPC', value: track.externalIds?.upc),
           DataPiece(name: 'ID', value: track.id),
           DataPiece(name: 'URI', value: track.uri),
         ]);

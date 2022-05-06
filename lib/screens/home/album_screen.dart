@@ -19,6 +19,7 @@ class AlbumScreen extends StatelessWidget {
         coverImagePlaceholder: const Icon(Icons.album),
         children: [
           Artists(artists: album.artists),
+          DataPiece(name: 'Release date', value: album.releaseDate),
           DataPiece(name: 'Tracks', value: album.totalTracks.toString()),
           DialogListData(
               name: 'Images',

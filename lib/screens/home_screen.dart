@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:spotify_sdk/models/player_state.dart';
 import 'package:statify/api/album.dart';
 import 'package:statify/api/artist.dart';
 import 'package:statify/api/track.dart';
@@ -25,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   ];
 
   String? _trackId;
-  Widget? _homeScreen;
   late TabController _tabController;
 
   Future<_TrackWithArtists> fetchData(String trackId) async {
@@ -70,30 +70,35 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<PlayerState>(
-        stream: Connector().subscribePlayerState(),
-        builder: (BuildContext context, AsyncSnapshot<PlayerState> snapshot) {
-          String? trackId = snapshot.data?.track?.uri.split(':').last;
+    return StreamBuilder<String?>(
+        stream: Connector()
+            .subscribePlayerState()
+            .map((playerState) => playerState.track?.uri.split(':').last)
+            .where((trackId) => trackId != _trackId),
+        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+          String? trackId = snapshot.data;
 
           if (trackId == null || trackId.isEmpty) {
             return const CircularProgressIndicator();
-          }
-          if (trackId == _trackId && _homeScreen != null) {
-            return _homeScreen!;
           }
           return FutureBuilder(
               future: fetchData(trackId),
               builder: (BuildContext context, AsyncSnapshot<_TrackWithArtists> snapshot) {
                 _TrackWithArtists? data = snapshot.data;
 
-                if (data == null) {
+                if (snapshot.hasError) {
+                  return const Text(
+                    'No data available :(\nAre you listening to a podcast?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(height: 1.5),
+                  );
+                }
+                if (!snapshot.hasData) {
                   return const CircularProgressIndicator();
                 }
 
-                _trackId = data.track.id;
-                _homeScreen = buildHomeScreen(context, data);
-
-                return _homeScreen!;
+                _trackId = data!.track.id;
+                return buildHomeScreen(context, data);
               });
         });
   }

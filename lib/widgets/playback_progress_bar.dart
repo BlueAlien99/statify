@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -42,6 +41,13 @@ class _PlaybackProgressBarState extends State<PlaybackProgressBar> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _currentPlaybackPosition = widget.playbackPosition;
+    handleTimer();
+  }
+
+  @override
   void didUpdateWidget(PlaybackProgressBar oldWidget) {
     super.didUpdateWidget(oldWidget);
     _currentPlaybackPosition = widget.playbackPosition;
@@ -49,9 +55,9 @@ class _PlaybackProgressBarState extends State<PlaybackProgressBar> {
   }
 
   @override
-  void deactivate() {
-    super.deactivate();
+  void dispose() {
     _timer?.cancel();
+    super.dispose();
   }
 
   @override

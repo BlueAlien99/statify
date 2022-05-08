@@ -83,12 +83,15 @@ class Connector {
       if (event.connected) {
         return _connectionState.add(ConnectionState.connected);
       }
-      debugPrint(_lastMessage);
       if (_connectionState.value == ConnectionState.connected &&
           event.errorCode == 'SpotifyDisconnectedException') {
         Timer(_reconnectionDelay, connectToRemote);
         return _connectionState.add(ConnectionState.reconnecting);
       }
+      if (_connectionState.value == ConnectionState.reconnecting) {
+        return;
+      }
+      debugPrint(_lastMessage);
       return _connectionState.add(ConnectionState.error);
     });
     _sdkPlayerSubscription ??= _connectionState

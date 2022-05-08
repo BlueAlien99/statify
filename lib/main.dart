@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide ConnectionState;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:statify/connector.dart';
-import 'package:statify/dialog_manager.dart';
+import 'package:statify/connection_dialogs.dart';
 import 'package:statify/screens/library_screen.dart';
 import 'package:statify/screens/search_screen.dart';
 import 'package:statify/screens/home_screen.dart';
@@ -48,21 +48,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
     Connector().subscribeConnectionState().listen((event) {
-      DialogManager().popAllConnectionStateDialogs(context);
+      popAllConnectionStateDialogs(context);
       switch (event) {
         case ConnectionState.initializing:
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: DialogManager().connectingDialogBuilder,
-              routeSettings: const RouteSettings(name: '/connectionStateDialog'));
+          showConnectionDialog(context, connectingDialogBuilder);
           break;
         case ConnectionState.error:
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: DialogManager().connectionErrorDialogBuilder,
-              routeSettings: const RouteSettings(name: '/connectionStateDialog'));
+          showConnectionDialog(context, connectionErrorDialogBuilder);
           break;
         default:
           break;

@@ -1,12 +1,11 @@
 - reorganize files
-- refactor dialog manager
 - finish home screen
 - track caching
 - artist caching
 - handle api 403
 - handle api 429
 - handle expired token in connector
-- disconnecting?
+- concurrent connectToSpotify
 - other artists
 - url data snackbar
 - url data opening

@@ -23,6 +23,8 @@ class TrackScreen extends StatelessWidget {
           Artists(artists: track.artists ?? []),
           DataPiece(name: 'Album', value: track.album?.name),
           DataPiece(name: 'Track / Disc', value: '${track.trackNumber} / ${track.discNumber}'),
+          DataPiece(
+              name: 'Restrictions', value: track.restrictions?.reason.toString().split('.').last),
           DialogListData(
               name: 'Available markets',
               length: track.availableMarkets?.length ?? 0,

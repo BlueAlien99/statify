@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:statify/api/track.dart';
+import 'package:statify/utils/formatters.dart';
 import 'package:statify/widgets/data_piece.dart';
 import 'package:statify/widgets/home_screen/dialog_list_data.dart';
 import 'package:statify/widgets/home_screen/home_screen_tab_view.dart';
@@ -23,6 +24,7 @@ class TrackScreen extends StatelessWidget {
           Artists(artists: track.artists ?? []),
           DataPiece(name: 'Album', value: track.album?.name),
           DataPiece(name: 'Track / Disc', value: '${track.trackNumber} / ${track.discNumber}'),
+          DataPiece(name: 'Duration', value: formatTrackDuration(track.durationMs ?? 0)),
           DataPiece(
               name: 'Restrictions', value: track.restrictions?.reason.toString().split('.').last),
           DialogListData(

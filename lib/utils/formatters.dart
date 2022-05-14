@@ -19,3 +19,19 @@ String formatLongInt(int? value) {
   }
   return splitByGroupsOf(3, value.toString(), true).join(' ');
 }
+
+String padTime(int val, int leftPadWidth) {
+  return val.toString().padLeft(leftPadWidth, '0');
+}
+
+String formatTrackDuration(int ms) {
+  const int msToSecondRatio = 1000;
+  const int secondToMinuteRatio = 60;
+  const int msToMinuteRatio = msToSecondRatio * secondToMinuteRatio;
+
+  int minutes = (ms / msToMinuteRatio).floor();
+  int seconds = ((ms / msToSecondRatio) % secondToMinuteRatio).floor();
+  int milliseconds = ms % msToSecondRatio;
+
+  return '$minutes:${padTime(seconds, 2)}.${padTime(milliseconds, 3)}';
+}

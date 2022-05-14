@@ -4,9 +4,9 @@
 - handle api 429
 - handle expired token in connector
 - concurrent connectToSpotify
+- parallel duplicated requests
 - other artists
 - url data snackbar
-- url data opening
 - fix cover image placeholder
 - google play release
 - spotify quota

@@ -15,7 +15,7 @@ class UrlData extends StatelessWidget {
   void openUrl(BuildContext context) {
     Uri? url = Uri.tryParse(value!);
     if (url != null) {
-      launchUrl(url);
+      launchUrl(url, mode: LaunchMode.externalApplication);
     }
   }
 

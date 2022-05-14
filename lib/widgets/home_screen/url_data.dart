@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,13 +21,11 @@ class UrlData extends StatelessWidget {
 
   void copyUrl(BuildContext context) {
     Clipboard.setData(ClipboardData(text: value));
-    Flushbar(
-      message: '$name copied!',
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('$name copied!'),
+      behavior: SnackBarBehavior.floating,
       duration: const Duration(seconds: 2),
-      animationDuration: const Duration(milliseconds: 400),
-      backgroundColor: Colors.white,
-      messageColor: Colors.black,
-    ).show(context);
+    ));
   }
 
   @override

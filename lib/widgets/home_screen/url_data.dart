@@ -23,7 +23,6 @@ class UrlData extends StatelessWidget {
     Clipboard.setData(ClipboardData(text: value));
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('$name copied!'),
-      behavior: SnackBarBehavior.floating,
       duration: const Duration(seconds: 2),
     ));
   }

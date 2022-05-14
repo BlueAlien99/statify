@@ -79,15 +79,15 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+        body: Stack(alignment: Alignment.bottomCenter, children: [
+      Center(
         child: _screens.elementAt(_currentViewIndex),
       ),
-      extendBody: true,
-      bottomNavigationBar: Navbar(
+      Navbar(
           idx: _currentViewIndex,
           setIdx: (newIdx) => setState(() {
                 _currentViewIndex = newIdx;
-              })),
-    );
+              }))
+    ]));
   }
 }

@@ -6,6 +6,9 @@ import 'package:statify/widgets/player_cover_image.dart';
 import 'package:statify/widgets/playback_progress_bar.dart';
 
 class Player extends StatefulWidget {
+  static const double playerHeight = 56;
+  static const double playerMargin = 8;
+
   const Player({Key? key}) : super(key: key);
 
   @override
@@ -31,11 +34,11 @@ class _PlayerState extends State<Player> {
     var track = playerState.track!;
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(Player.playerMargin),
       child: GestureDetector(
         onHorizontalDragEnd: handleHorizontalDrag,
         child: Container(
-            height: 56,
+            height: Player.playerHeight,
             alignment: Alignment.bottomCenter,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6.0),

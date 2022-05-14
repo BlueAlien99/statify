@@ -29,6 +29,8 @@ class ArtistSummary {
 }
 
 class Artist extends ArtistSummary {
+  static final Map<String, Artist> _cache = {};
+
   final Followers? followers;
   final List<String>? genres;
   final List<Image>? images;
@@ -46,10 +48,25 @@ class Artist extends ArtistSummary {
   }
 
   static Future<List<Artist>> getSeveralArtists(List<String> ids) async {
-    final response = await apiGet('/artists?ids=${ids.join(',')}');
+    List<String> idsToFetch = ids.where((id) => !_cache.containsKey(id)).toList();
+    List<Artist> cachedArtists =
+        ids.where((id) => !idsToFetch.contains(id)).map((id) => _cache[id]!).toList();
+
+    if (idsToFetch.isEmpty) {
+      return cachedArtists;
+    }
+
+    final response = await apiGet('/artists?ids=${idsToFetch.join(',')}');
 
     if (response.statusCode == 200) {
-      return arrayOfClass(Artist.fromJson, jsonDecode(response.body)['artists']);
+      List<Artist> fetchedArtists =
+          arrayOfClass(Artist.fromJson, jsonDecode(response.body)['artists']);
+      for (final artist in fetchedArtists) {
+        _cache[artist.id!] = artist;
+      }
+      List<Artist> artists = [...cachedArtists, ...fetchedArtists];
+      artists.sort((a, b) => ids.indexOf(a.id!).compareTo(ids.indexOf(b.id!)));
+      return artists;
     } else {
       throw Exception('Failed to load artists');
     }

@@ -12,6 +12,8 @@ import 'package:statify/utils/type_or.dart';
 import 'package:statify/utils/type_or_null.dart';
 
 class Track {
+  static final Map<String, Track> _cache = {};
+
   final Album? album;
   final List<ArtistSummary>? artists;
   final List<String>? availableMarkets;
@@ -77,10 +79,16 @@ class Track {
   }
 
   static Future<Track> getTrack(String id) async {
+    if (_cache.containsKey(id)) {
+      return _cache[id]!;
+    }
+
     final response = await apiGet('/tracks/$id');
 
     if (response.statusCode == 200) {
-      return Track.fromJson(jsonDecode(response.body));
+      Track track = Track.fromJson(jsonDecode(response.body));
+      _cache[id] = track;
+      return track;
     } else {
       throw Exception('Failed to load track');
     }

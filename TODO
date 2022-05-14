@@ -6,7 +6,6 @@
 - concurrent connectToSpotify
 - parallel duplicated requests
 - other artists
-- url data snackbar
 - fix cover image placeholder
 - google play release
 - spotify quota

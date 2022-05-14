@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  another_flushbar: ^1.10.28
   flutter_dotenv: ^5.0.2
   http: ^0.13.4
   rxdart: ^0.27.3

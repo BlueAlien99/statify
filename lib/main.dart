@@ -15,6 +15,8 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final Color backgroundColor = const Color.fromRGBO(18, 18, 18, 1);
+
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -22,9 +24,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Statify',
       theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.blue,
-      ),
+          brightness: Brightness.dark,
+          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: backgroundColor,
+          dialogBackgroundColor: backgroundColor,
+          indicatorColor: Colors.greenAccent,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            brightness: Brightness.dark,
+            secondary: Colors.black,
+          )),
       home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
     );

@@ -21,14 +21,19 @@ class HomeScreenTabView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Column(children: [
-      CoverImage(url: coverImageUrl, placeholder: coverImagePlaceholder),
-      ObjectName(name: name),
-      const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Divider(
-          color: Colors.blueGrey,
-        ),
-      ),
+      FractionallySizedBox(
+          widthFactor: 1,
+          child: Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.blueGrey, Colors.transparent])),
+              child: Column(children: [
+                CoverImage(url: coverImageUrl, placeholder: coverImagePlaceholder),
+                ObjectName(name: name),
+                const Padding(padding: EdgeInsets.all(16)),
+              ]))),
       ...children,
       const ScreenPadding(),
     ]));

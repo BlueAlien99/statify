@@ -33,7 +33,7 @@ class Popularity extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
               child: Container(
                 width: double.infinity,
-                color: Colors.black38,
+                color: Colors.white10,
                 child: FractionallySizedBox(
                   alignment: Alignment.centerLeft,
                   widthFactor: valueFraction,

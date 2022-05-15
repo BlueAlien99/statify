@@ -39,11 +39,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     Album album = (data.track.album ?? Album.fromJson({}));
 
     return Column(children: [
-      TabBar(
-        controller: _tabController,
-        padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-        tabs: tabs,
-      ),
+      ColoredBox(
+          color: Colors.blueGrey,
+          child: TabBar(
+            controller: _tabController,
+            padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
+            tabs: tabs,
+          )),
       Expanded(
           child: TabBarView(
         controller: _tabController,

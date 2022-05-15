@@ -1,5 +1,4 @@
 - reorganize files
-- finish home screen
 - handle api 403
 - handle api 429
 - handle expired token in connector
@@ -8,4 +7,3 @@
 - other artists
 - fix cover image placeholder
 - google play release
-- spotify quota

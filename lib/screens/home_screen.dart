@@ -88,6 +88,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               builder: (BuildContext context, AsyncSnapshot<_TrackWithArtists> snapshot) {
                 _TrackWithArtists? data = snapshot.data;
 
+                _trackId = null;
+
                 if (snapshot.hasError) {
                   return const Text(
                     'No data available :(\nAre you listening to a podcast?',

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:statify/widgets/data_piece.dart';
+import 'package:statify/widgets/home_screen/data_piece.dart';
 
 class Popularity extends StatelessWidget {
   final int? value;

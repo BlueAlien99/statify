@@ -1,4 +1,3 @@
-- reorganize files
 - handle api 403
 - handle api 429
 - handle expired token in connector

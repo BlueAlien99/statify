@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:statify/api/artist.dart';
-import 'package:statify/widgets/data_piece.dart';
-import 'package:statify/widgets/home_screen/dialog_list_data.dart';
+import 'package:statify/widgets/home_screen/data_piece.dart';
+import 'package:statify/widgets/home_screen/specialized_pieces/dialog_list_data.dart';
 
 class Artists extends StatelessWidget {
   final List<ArtistSummary> artists;

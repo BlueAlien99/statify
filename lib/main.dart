@@ -1,13 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart' hide ConnectionState;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:statify/connector.dart';
 import 'package:statify/connection_dialogs.dart';
+import 'package:statify/connector.dart';
+import 'package:statify/screens/home_screen.dart';
 import 'package:statify/screens/library_screen.dart';
 import 'package:statify/screens/search_screen.dart';
-import 'package:statify/screens/home_screen.dart';
 import 'package:statify/widgets/navbar.dart';
-
-import 'dart:async';
 
 Future<void> main() async {
   await dotenv.load(fileName: '.env');

@@ -3,9 +3,9 @@ import 'package:statify/api/artist.dart';
 import 'package:statify/utils/formatters.dart';
 import 'package:statify/widgets/home_screen/data_piece.dart';
 import 'package:statify/widgets/home_screen/specialized_pieces/dialog_list_data.dart';
-import 'package:statify/widgets/home_screen_tab_view.dart';
 import 'package:statify/widgets/home_screen/specialized_pieces/popularity.dart';
 import 'package:statify/widgets/home_screen/specialized_pieces/url_data.dart';
+import 'package:statify/widgets/home_screen_tab_view.dart';
 
 class ArtistsScreen extends StatelessWidget {
   final List<Artist> artists;

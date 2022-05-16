@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:spotify_sdk/models/player_state.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:spotify_sdk/spotify_sdk.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:spotify_sdk/models/player_state.dart';
+import 'package:spotify_sdk/spotify_sdk.dart';
 
 enum ConnectionState { uninitialized, initializing, connected, error, reconnecting }
 

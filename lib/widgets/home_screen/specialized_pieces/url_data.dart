@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:statify/styles.dart';
 import 'package:statify/widgets/home_screen/data_piece.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UrlData extends StatelessWidget {
   final String name;

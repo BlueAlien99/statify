@@ -80,6 +80,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
           String? trackId = snapshot.data;
 
+          _trackId = null;
+
           if (trackId == null || trackId.isEmpty) {
             return const CircularProgressIndicator();
           }
@@ -87,8 +89,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               future: fetchData(trackId),
               builder: (BuildContext context, AsyncSnapshot<_TrackWithArtists> snapshot) {
                 _TrackWithArtists? data = snapshot.data;
-
-                _trackId = null;
 
                 if (snapshot.hasError) {
                   return const Text(
